@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
+
+
+</head>
+<body>
+    <form method="POST">
+        <label name="name">Name :</label>
+        <p><input placeholder="Name" type="text" name="name" required/></p>
+        <label name="Car Number">Car Number :</label>
+        <p><input placeholder="Car Number" type="text" name="car_num" required/></p>
+        <label name="Fuel">Fuel :</label>
+        <p><input placeholder="Fuel" type="text" name="fuel" required/></p>
+        <label name="Service Date">Service Date :</label>
+        <p><input placeholder="Service Date" type="date" name="date"required /></p>
+        <p><input type="submit" value="submit" /></p>
+        <p></p>
+    </form>
+</body>
+{%endblock%}

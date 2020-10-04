@@ -1,0 +1,39 @@
+<html>
+    <head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="{{url_for('static',filename='base.css')}}" />
+        {% if title %}
+        <title>{{ title }} - Service</title>
+        {% else %}
+       <title>Welcome to Service</title> 
+        {% endif %}
+    </head>
+    <body>
+        <ul ><span>
+            <li><a href="{{url_for('index')}}"><span>Home</span></a></li>
+            <li><a href="{{url_for('login')}}"><span>Login</span></a></li>
+            <li><a href="{{url_for('register')}}"><span>Register</span></a></li>
+            <li><a href="{{url_for('addvehicle')}}"><span>Add Vehicle</span></a></li>
+            <li><a href="#appointment"><span>Book Appointment</span></a></li>
+            <li><a href="#status"><span>Check Status</span></a></li>
+            <li style="float: right;"><a href="#about"><span>Welcome</span></a></li>
+         </span> </ul>
+
+       <!-- <a href="#about">Logout</a> 
+       <a>Welcome {{Username}}</a> -->
+      </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

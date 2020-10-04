@@ -1,0 +1,63 @@
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+*{
+    font-family: 'Montserrat', sans-serif;;
+    font-size: 17px;
+    padding: 0px;
+    margin: 0px;
+    
+}
+body{
+  box-shadow: 1px 2px 15px  grey;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;
+  background-color: #f3f3f3;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  
+    position: relative;
+    display: inline-block;
+    padding: 10px 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 10px;
+    letter-spacing: 2px;
+    color: #5a84a2;
+    
+    border-radius: 10px;
+    box-shadow: -2px -2px 8px rgba(255, 255, 255, 1),
+    -2px -2px 12px rgba(255, 255, 255, 0.5),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+    2px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+li a:hover span{
+  display: inline-block;
+  transform: scale(0.97);
+}
+
+li a:hover:not(.active) {
+  box-shadow: inset -2px -2px 8px rgba(255, 255, 255, 1),
+  inset -2px -2px 12px rgba(255, 255, 255, 0.5),
+  inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+  inset 2px 2px 8px rgba(0, 0, 0, 0.15);  
+}
+
+li a.active {
+  background-color: dodgerblue;
+  color:  whitesmoke;
+}
