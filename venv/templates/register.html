@@ -2,15 +2,81 @@
 
 {% block content %}
 <head>
-    <h1>Register Here</h1>
+    
+    <style>
+        .form1{
+    font-size: 20px;
+    
+   position: absolute;
+   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  padding-top: 50px;
+  padding-bottom: 50px;
+   width: 500px;
+   justify-content: center;
+   justify-self: center;
+   align-content: center;
+   border-radius: 15px;
+    box-shadow: -4px -4px 12px rgba(255, 255, 255, 1),
+    -4px -4px 14px rgba(255, 255, 255, 0.5),
+    inset 4px 4px 6px rgba(255, 255, 255, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.15);
+}     
+
+
+    .button{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 12px;
+    
+}
+
+.button input{
+    padding: 6px;
+    letter-spacing: 2px;
+    color: #5a84a2;
+    border-radius: 5px;
+    box-shadow: -2px -2px 4px rgba(255, 255, 255, 1),
+    -2px -2px 8px rgba(255, 255, 255, 0.5),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+    2px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.button input:hover {
+  display: inline-block;
+  transform: scale(0.97);
+}
+
+.button input:hover {
+  box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 1),
+  inset -2px -2px 8px rgba(255, 255, 255, 0.5),
+  inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+  inset 2px 2px 6px rgba(0, 0, 0, 0.15);  
+}
+
+input{
+    border: 0px;
+    padding: 5px;
+    border: 0px;
+    background-color: #e6e4e4;
+    border-radius: 3px;
+    
+}
+
+    </style>
   </head>
   <br>
   <body>
-      <h4>Sign Up</h4>
+    <p>Existing User? <a href="{{ url_for('login') }}">Click to Login!</a></p>
+      <h4 align="center">Sign Up</h4>
       <br>
+      <div class="form1">
       <form action="" method="post">
           {{ form.hidden_tag() }}
-          <p>
+          <p><br>
             {{ form.username.label}}<br>
               {{ form.username(size=32,placeholder="username") }}<br>
               {% for error in form.username.errors %}
@@ -52,7 +118,8 @@
               <span style="color: red;">[{{ error }}]</span>
               {% endfor %}
           </p>
-          <p>{{ form.submit() }}</p>
+           <p class="button">{{ form.submit() }}</p>
       </form>
+    </div>
   </body>
 {%endblock%}  
