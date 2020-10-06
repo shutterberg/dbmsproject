@@ -1,4 +1,4 @@
-from forms import RegistrationForm, LoginForm
+from forms import LoginForm, RegistrationForm, VehicleDetails
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
@@ -96,9 +96,10 @@ def login():
 
 
 @app.route('/addvehicle',methods=['GET','POST'])
-def addvehicle():
-    if request.method=='POST':
-        car=request.form
-        db.session.add(car)
-        db.session.commit()
-    return render_template('addcarform.html')  
+def addnewvehicle():
+  form = VehicleDetails(csrf_enabled=False)
+  if form.validate_on_submit():
+    new_vehicle =  VehicleDetails(form.data)
+    db.session.add(new_vehicle)
+    db.session.commit()
+  return render_template('addnewvehicle.html', title='New Vehicle', form=form)

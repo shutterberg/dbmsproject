@@ -9,7 +9,6 @@ class RegistrationForm(FlaskForm):
   email = StringField('Email', validators=[DataRequired(), Email()])
   password = PasswordField('Password', validators=[DataRequired()])
   password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
-  
   submit = SubmitField('Register')    
 
 class LoginForm(FlaskForm):
@@ -18,3 +17,10 @@ class LoginForm(FlaskForm):
   remember = BooleanField('Remember Me')
   submit = SubmitField('Login')  
   
+class VehicleDetails(FlaskForm):
+  company=StringField('Company', validators=[DataRequired()])
+  chasis=IntegerField('Chasis', validators=[DataRequired()])
+  color = StringField('Color', validators=[DataRequired()])
+  car_num = StringField('Car NUmber', validators=[DataRequired()])
+  fuel=StringField('Fuel', validators=[DataRequired()])
+  submit = SubmitField('Add Car')    
