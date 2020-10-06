@@ -21,7 +21,6 @@ login_manager.init_app(app)
 
 class Vehicle_details(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    id = db.Column(db.Integer,db.f)
     name = db.Column(db.String(80), unique=False, nullable=False)
     car_num = db.Column(db.String(120), unique=True, nullable=False)                                                                    
     fuel = db.Column(db.String(120), nullable=False)
