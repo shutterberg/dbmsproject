@@ -55,7 +55,7 @@ db.create_all()
 
 @app.route('/')
 def index():
-    return 'hello world'
+    return render_template('base.html')
 
 @app.route('/home')
 def home():
@@ -90,6 +90,7 @@ def login():
       # login user here:
       flash('login success')
       login_user(user, remember=form.remember.data)
+      render_template('base.html',current_user=user)
       next_page = url_for('index')
       return redirect(next_page) if next_page else redirect(url_for('index', _external=True, _scheme='https'))
     else:

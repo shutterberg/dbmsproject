@@ -12,12 +12,12 @@
     </head>
     <body>
         <ul ><span>
-            <li><a href="{{url_for('login')}}"><span>Login</span></a></li>
-            <li><a href="{{url_for('register')}}"><span>Register</span></a></li>
+            <li><a href="{{url_for('login')}}"><span>Login/Regiter</span></a></li>
+            <li><a href="{{url_for('logout')}}"><span>Logout</span></a></li>
             <li><a href="{{url_for('addnewvehicle')}}"><span>Add Vehicle</span></a></li>
             <li><a href="#appointment"><span>Book Appointment</span></a></li>
             <li><a href="#status"><span>Check Status</span></a></li>
-            <li style="float: right;"><a href="#about"><span>Welcome</span></a></li>
+            <li style="float: right;"><a href=""><span>{{"Welcome "+current_user.name | default("User")}}</span></a></li>
          </span> </ul>
 
        <!-- <a href="#about">Logout</a> 
