@@ -1,4 +1,4 @@
-from forms import LoginForm, RegistrationForm, VehicleDetails
+from forms import LoginForm, RegistrationForm, NewvDetails
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
@@ -19,19 +19,21 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-class Vehicle_details(db.Model):
+class VehicleDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=False, nullable=False)
+    company = db.Column(db.String(80), unique=False, nullable=False)
+    chasis= db.Column(db.String(80), unique=False, nullable=False)
+    color = db.Column(db.String(80), unique=False, nullable=False)
     car_num = db.Column(db.String(120), unique=True, nullable=False)                                                                    
     fuel = db.Column(db.String(120), nullable=False)
-    service_date = db.Column(db.String(120))
+    
 
 
 class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(64), index=True, unique=True)
-  name=db.Column(db.String(64), index=True, unique=True)
-  number=db.Column(db.String(64), index=True, unique=True)
+  name=db.Column(db.String(64))
+  number=db.Column(db.Integer, unique=True)
   email = db.Column(db.String(120), unique = True, index = True)
   password_hash = db.Column(db.String(128))
   joined_at = db.Column(db.DateTime(), default = datetime.utcnow, index = True)
@@ -66,7 +68,7 @@ def home():
 def register():
   form = RegistrationForm(csrf_enabled=False)
   if form.validate_on_submit():
-    user = User(username=form.username.data, email=form.email.data)
+    user = User(username=form.username.data, email=form.email.data, name=form.name.data, number=form.number.data)
     user.set_password(form.password.data)
     db.session.add(user)
     db.session.commit()
@@ -96,10 +98,11 @@ def login():
 
 
 @app.route('/addvehicle',methods=['GET','POST'])
+@login_required
 def addnewvehicle():
-  form = VehicleDetails(csrf_enabled=False)
+  form = NewvDetails(csrf_enabled=False)
   if form.validate_on_submit():
-    new_vehicle =  VehicleDetails(form.data)
+    new_vehicle =  VehicleDetails(company=form.company.data,chasis=form.chasis.data,color=form.color.data,car_num=form.car_num.data,fuel=form.fuel.data)
     db.session.add(new_vehicle)
     db.session.commit()
   return render_template('addnewvehicle.html', title='New Vehicle', form=form)

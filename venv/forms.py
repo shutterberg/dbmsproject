@@ -17,7 +17,7 @@ class LoginForm(FlaskForm):
   remember = BooleanField('Remember Me')
   submit = SubmitField('Login')  
   
-class VehicleDetails(FlaskForm):
+class NewvDetails(FlaskForm):
   company=StringField('Company', validators=[DataRequired()])
   chasis=IntegerField('Chasis', validators=[DataRequired()])
   color = StringField('Color', validators=[DataRequired()])
