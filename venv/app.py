@@ -2,7 +2,7 @@ from forms import LoginForm, RegistrationForm, NewvDetails
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, LoginManager, login_required, login_user, current_user
+from flask_login import UserMixin, LoginManager, login_required, login_user, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, TextAreaField
@@ -19,15 +19,27 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-class VehicleDetails(db.Model):
+@event.listens_for(Engine,"connect")
+def set_sqlite_pragma(dbapi_connection, connection_record):
+  cursor=dbapi_connection.cursor()
+  cursor.execute("PRAGMA foreign_keys=ON")
+  cursor.close()
+
+class Vehicle_details(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     company = db.Column(db.String(80), unique=False, nullable=False)
     chasis= db.Column(db.String(80), unique=False, nullable=False)
     color = db.Column(db.String(80), unique=False, nullable=False)
     car_num = db.Column(db.String(120), unique=True, nullable=False)                                                                    
     fuel = db.Column(db.String(120), nullable=False)
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     
-
+class Book_service(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String(), default = datetime.date, nullable=False)
+    slot= db.Column(db.String(80), unique=False, nullable=False)
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))    
+    veh_num=db.Column(db.String(80))
 
 class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -37,8 +49,10 @@ class User(UserMixin, db.Model):
   email = db.Column(db.String(120), unique = True, index = True)
   password_hash = db.Column(db.String(128))
   joined_at = db.Column(db.DateTime(), default = datetime.utcnow, index = True)
+  veh=db.relationship('Vehicle_details',backref='owner',lazy='select')
+  ser=db.relationship('Book_service',backref='owner',lazy='select')
 
-  def __repr__(self):
+  def __repr__(self): 
     return '<User {}>'.format(self.username)
 
   def set_password(self, password):
@@ -62,7 +76,9 @@ def home():
     return render_template('base.html')  
 
 
-             
+@login_manager.user_loader
+def load_user(user_id):
+  return User.get(user_id)             
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -100,10 +116,28 @@ def login():
 
 @app.route('/addvehicle',methods=['GET','POST'])
 @login_required
-def addnewvehicle():
+@app.route('/addvehicle',methods=['GET','POST'])
+def addvehicle():
   form = NewvDetails(csrf_enabled=False)
   if form.validate_on_submit():
-    new_vehicle =  VehicleDetails(company=form.company.data,chasis=form.chasis.data,color=form.color.data,car_num=form.car_num.data,fuel=form.fuel.data)
+    new_vehicle = Vehicle_details(company=form.company.data,chasis=form.chasis.data,color=form.color.data,car_num=form.car_num.data,fuel=form.fuel.data,owner=current_user)
     db.session.add(new_vehicle)
-    db.session.commit()
-  return render_template('addnewvehicle.html', title='New Vehicle', form=form)
+    db.session.commit() 
+  return render_template('addcarform.html', form=form)
+
+
+@app.route('/bookservice',methods=['GET','POST'])
+def bookservice():
+  details=Vehicle_details.query.filter_by(user_id=current_user.id).all()
+  if request.method == 'POST':
+    form=request.form
+    new_booking = Book_service(date=form['date'],slot=form['slot'],veh_num=form['carnum'],owner=current_user)
+    db.session.add(new_booking)
+    db.session.commit() 
+  return render_template('bookservice.html',details=details)
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))    
