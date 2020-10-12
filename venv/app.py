@@ -1,12 +1,14 @@
 from forms import LoginForm, RegistrationForm, NewvDetails
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, event
+from sqlalchemy.engine import Engine
 from flask_login import UserMixin, LoginManager, login_required, login_user, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Email, EqualTo
+
 
 app=Flask(__name__)
 app.config["SECRET_KEY"] = "mysecret"
@@ -18,6 +20,7 @@ db = SQLAlchemy(app)
 #login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view='login'
 
 @event.listens_for(Engine,"connect")
 def set_sqlite_pragma(dbapi_connection, connection_record):
@@ -116,17 +119,17 @@ def login():
 
 @app.route('/addvehicle',methods=['GET','POST'])
 @login_required
-@app.route('/addvehicle',methods=['GET','POST'])
 def addvehicle():
   form = NewvDetails(csrf_enabled=False)
   if form.validate_on_submit():
     new_vehicle = Vehicle_details(company=form.company.data,chasis=form.chasis.data,color=form.color.data,car_num=form.car_num.data,fuel=form.fuel.data,owner=current_user)
     db.session.add(new_vehicle)
     db.session.commit() 
-  return render_template('addcarform.html', form=form)
+  return render_template('addnewvehicle.html', form=form)
 
 
 @app.route('/bookservice',methods=['GET','POST'])
+@login_required
 def bookservice():
   details=Vehicle_details.query.filter_by(user_id=current_user.id).all()
   if request.method == 'POST':
