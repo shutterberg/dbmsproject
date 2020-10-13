@@ -16,7 +16,7 @@
             <li><a href="{{url_for('logout')}}"><span>Logout</span></a></li>
             <li><a href="{{url_for('addvehicle')}}"><span>Add Vehicle</span></a></li>
             <li><a href="{{url_for('bookservice')}}"><span>Book Appointment</span></a></li>
-            <li><a href="/"><span>Check Status</span></a></li>
+            <li><a href="{{url_for('status')}}"><span>Check Status</span></a></li>
             <li style="float: right;"><a href=""><span>{{"Welcome "+current_user.name | default("User")}}</span></a></li>
          </span> </ul>
 

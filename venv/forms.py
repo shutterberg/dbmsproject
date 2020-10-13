@@ -23,4 +23,9 @@ class NewvDetails(FlaskForm):
   color = StringField('Color', validators=[DataRequired()])
   car_num = StringField('Car NUmber', validators=[DataRequired()])
   fuel=StringField('Fuel', validators=[DataRequired()])
-  submit = SubmitField('Add Car')    
+  submit = SubmitField('Add Car')
+
+class StatusForm(FlaskForm):
+  orderid=StringField('Order ID', validators=[DataRequired()])
+  submit = SubmitField('Check Status')
+        

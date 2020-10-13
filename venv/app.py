@@ -1,4 +1,4 @@
-from forms import LoginForm, RegistrationForm, NewvDetails
+from forms import  StatusForm, LoginForm, RegistrationForm, NewvDetails
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy, event
@@ -43,6 +43,7 @@ class Book_service(db.Model):
     slot= db.Column(db.String(80), unique=False, nullable=False)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))    
     veh_num=db.Column(db.String(80))
+    bksrv=db.relationship('Status',backref='owner',lazy='select') 
 
 class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -65,6 +66,17 @@ class User(UserMixin, db.Model):
     return check_password_hash(self.password_hash, password)   
 
 
+    
+
+
+class Status(db.Model):
+  id = db.Column(db.Integer, primary_key=True) 
+  booked=db.Column(db.String(64)) 
+  started=db.Column(db.String(64)) 
+  wash=db.Column(db.String(64))
+  wheelcare=db.Column(db.String(64))  
+  checkup=db.Column(db.String(64))
+  bk_id=db.Column(db.Integer,db.ForeignKey('book_service.id'))
 #uncomment if running on new machine for the first time only to create db
 db.create_all()
 
@@ -136,6 +148,9 @@ def bookservice():
     form=request.form
     new_booking = Book_service(date=form['date'],slot=form['slot'],veh_num=form['carnum'],owner=current_user)
     db.session.add(new_booking)
+    db.session.commit()
+    status=Status(booked=0, started=0, wash=0,wheelcare= 0, checkup=0, owner=new_booking) 
+    db.session.add(status)
     db.session.commit() 
   return render_template('bookservice.html',details=details)
 
@@ -144,3 +159,20 @@ def bookservice():
 def logout():
     logout_user()
     return redirect(url_for('index'))    
+
+
+@app.route('/status', methods=['GET','POST'])
+def status():
+  form = StatusForm(csrf_enabled=False)
+  if form.validate_on_submit():
+    # query bookid here:
+    st = Status.query.filter_by(bk_id=form.orderid.data)
+    if not st is None:
+      # login user here:
+      ids=['booked','started','wash','wheelcare','checkup']
+      flash('Valid id')
+      return render_template('display_details.html',cur_status=st,ids=ids)
+    else:
+      flash('Invalid id')
+      return redirect(url_for('status',_external=True))
+  return render_template('status.html', form=form)    
