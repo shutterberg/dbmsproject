@@ -177,3 +177,12 @@ def status():
       flash('Invalid id')
       return redirect(url_for('status',_external=True))
   return render_template('status.html', form=form)    
+
+
+@app.route('/service',methods=['GET','POST'])
+def service():
+  details=Book_service.query.all()
+  if request.method == 'POST':
+    form=request.form
+    return render_template('display_orders.html',details=details) 
+  return render_template('search_orders.html')  

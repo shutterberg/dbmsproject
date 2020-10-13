@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+    
+<style>
+
+    
+ body{
+  background-color: #f3f3f3;
+}
+    
+.container{
+  position: absolute;
+   top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+    box-shadow: -4px -4px 12px rgba(255, 255, 255, 1),
+    -4px -4px 14px rgba(255, 255, 255, 0.5),
+    inset 4px 4px 6px rgba(255, 255, 255, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.15);
+    padding-top: 30px;
+  padding-bottom: 70px;
+}
+
+.form1{
+    font-size: 20px;
+    
+   
+  display: flex;
+
+   width: 500px;
+   justify-content: center;
+   justify-self: center;
+   align-content: center;
+   
+}     
+
+.form1 p{
+  padding-bottom: 10px;
+}
+
+    .button{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 30px; 
+    
+}
+
+.button input{
+    padding: 6px;
+    letter-spacing: 2px;
+    color: #5a84a2;
+    border-radius: 5px;
+    box-shadow: -2px -2px 4px rgba(255, 255, 255, 1),
+    -2px -2px 8px rgba(255, 255, 255, 0.5),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+    2px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.button input:hover {
+  display: inline-block;
+  transform: scale(0.97);
+}
+
+.button input:hover {
+  box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 1),
+  inset -2px -2px 8px rgba(255, 255, 255, 0.5),
+  inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+  inset 2px 2px 6px rgba(0, 0, 0, 0.15);  
+}
+
+input{
+    border: 0px;
+    padding: 5px;
+    border: 0px;
+    background-color: #e6e4e4;
+    border-radius: 3px;
+    
+}
+
+    </style>
+  </head>
+  <br>
+  <body>
+    <div class="container">
+      <h4 align="center" style="padding-bottom: 10px;color: red;font-size: 20px;">Search Service Log</h4>
+      <p style="text-align: center;">Enter Details</a></p>
+      <br>
+      <div class="form1">
+        <form action="" method="POST">
+            <label for="date">Enter Date to Search:</label><br>
+            <input type="date" id="date" name="date"><br>
+
+            <br>
+            <input type="submit" value="Submit">
+          </form> 
+      
+    </div> </div>
+  </body>
+{%endblock%}  

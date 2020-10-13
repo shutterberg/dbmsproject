@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+th {
+  text-align: left;
+}
+table {
+  border-spacing: 5px;
+}
+#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+#t01 tr:nth-child(odd) {
+  background-color: #fff;
+}
+#t01 {
+  width: 100%;
+  background-color: #f1f1c1;
+}
+</style>
+<h1>Orders</h1>
+<table id="t01">
+    <tr>
+        <th>Order Id</th>
+        <th>Service Date</th>
+        <th>Slot</th>
+        <th>User Id</th>
+        <th>Vehicle Number</th>
+      </tr>
+{% for deet in details %}
+<tr>
+    <td>{{deet.id}}</td>
+    <td>{{deet.date}}</td>
+    <td>{{deet.slot}}</td>
+    <td>{{deet.user_id}}</td>
+    <td>{{deet.veh_num}}</td>
+</tr>
+{% endfor %}
+</table>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+{%endblock%}        
