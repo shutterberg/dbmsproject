@@ -162,6 +162,7 @@ def logout():
 
 
 @app.route('/status', methods=['GET','POST'])
+@login_required
 def status():
   form = StatusForm(csrf_enabled=False)
   if form.validate_on_submit():

@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h1>Current Status </h1>
 {% for deet in cur_status %}
-Booked :{%with data=deet.booked%}{% if data == 0 %} done {%else%} not done {%endif%}{%endwith%} <br>
-Started : {{deet.started}} <br>
-Wash : {{deet.wash}}  <br>
-Wheelcare : {{deet.wheelcare}}  <br>
-Checkup : {{deet.checkup}}   <br>
+{% if deet.booked == '1' %}<h1 style="color:green"> Booked :done</h1> {%else%}<h1 style="color:red"> Booked : Not done</h1> {%endif%}
+{% if deet.started == '1' %}<h1 style="color:green"> Started :done</h1> {%else%}<h1 style="color:red"> Started : Not done</h1> {%endif%}
+{% if deet.washed == '1' %}<h1 style="color:green"> Washed :done</h1> {%else%}<h1 style="color:red"> Washed : Not done</h1> {%endif%}
+{% if deet.wheelcare == '1' %}<h1 style="color:green"> Wheelcare :done</h1> {%else%}<h1 style="color:red"> Wheelcare : Not done</h1> {%endif%}
+{% if deet.checkup == '1' %}<h1 style="color:green"> Checkup :done</h1> {%else%}<h1 style="color:red"> Checkup : Not done</h1> {%endif%}
+
 {% endfor %}
         {% with messages = get_flashed_messages() %}
         {% if messages %}
