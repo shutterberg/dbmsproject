@@ -46,10 +46,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     margin-top: 30px; 
+    background: #f3f3f3;
     
 }
 
-.button input{
+.button{
     padding: 6px;
     letter-spacing: 2px;
     color: #5a84a2;
@@ -58,14 +59,15 @@
     -2px -2px 8px rgba(255, 255, 255, 0.5),
     inset 2px 2px 4px rgba(255, 255, 255, 0.1),
     2px 2px 6px rgba(0, 0, 0, 0.15);
+    background: #f3f3f3;
 }
 
-.button input:hover {
+.button :hover {
   display: inline-block;
   transform: scale(0.97);
 }
 
-.button input:hover {
+.button:hover {
   box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 1),
   inset -2px -2px 8px rgba(255, 255, 255, 0.5),
   inset 2px 2px 4px rgba(255, 255, 255, 0.1),
@@ -81,6 +83,12 @@ input{
     
 }
 
+.items{
+  padding: 4px;
+}
+
+
+
     </style>
   </head>
   <br>
@@ -90,26 +98,26 @@ input{
       <p style="text-align: center;">Enter Details</a></p>
       <br>
       <div class="form1">
-        <form action="" method="POST">
-            <label for="date">Service date</label><br>
-            <input type="date" id="date" name="date"><br>
-            <label for="slot">Choose a Slot:</label><br>
-            <select id="slot" name="slot">
+        <form action="" method="POST" class="form">
+            <div class="items"><label for="date">Service date</label> <br>
+             <input type="date" id="date" name="date"></div><br>
+             <label for="slot">Choose a Slot:</label><br>
+             <select id="slot" name="slot" style="background-color:#e6e4e4 ;border: 0px;padding: 4px;">
               <option value="slot1">Slot 1 (9:00-10:00)</option>
               <option value="slot2">Slot 2 (10:00-11:00)</option>
               <option value="slot3">Slot 3 (12:00-1:00)</option>
               <option value="slot4">Slot 4 (2:00-3:00)</option>
               <option value="slot5">Slot 5 (2:00-3:00)</option>
-            </select><br>
-            <label for="carnum">Choose a car:</label><br>
-            <select id="carnum" name="carnum" required>
+            </select> <br><br>
+            <div class="items"> <label for="carnum">Choose a car:</label><br>
+            <select id="carnum" name="carnum" required style="background-color:#e6e4e4 ;border: 0px;padding: 4px;">
             {% for car in details %}
               <option value="{{car.car_num}}">{{car.car_num}}</option><br>
               {% endfor %}
-            </select>
+            </select></div>
 
             <br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="button">
           </form> 
       
     </div> </div>
