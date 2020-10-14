@@ -2,18 +2,30 @@
 
 {% block content %}
 <style>
+
     table, th, td {
-  border: 1px solid black;
+  border: 1px solid rgb(177, 174, 174);
   border-collapse: collapse;
+  margin: 50px;
+
+  box-shadow: 0px;
+  
+}
+
+body{
+  box-shadow: none;
+  background-color: #f3f3f3;
 }
 th, td {
   padding: 15px;
+  text-align: center;
 }
 th {
-  text-align: left;
+  text-align: center;
 }
 table {
   border-spacing: 5px;
+  
 }
 #t01 tr:nth-child(even) {
   background-color: #eee;
@@ -22,12 +34,38 @@ table {
   background-color: #fff;
 }
 #t01 {
-  width: 100%;
+  width: 70%;
   background-color: #f1f1c1;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  
 }
+
+.orders{
+  background-color:#f3f3f3;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    left: 50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+    border-radius: 15px;
+    box-shadow: -4px -4px 12px rgba(255, 255, 255, 1),
+    -4px -4px 14px rgba(255, 255, 255, 0.5),
+    inset 4px 4px 6px rgba(255, 255, 255, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
 </style>
-<h1>Orders</h1>
-<table id="t01">
+<body>
+  
+ <div class="orders">
+<h1 style="text-align: center;font-size: 20px;padding-top: 15px;color: rgb(39, 39, 209);letter-spacing: 2px;">Orders</h1>
+<table id="t01" >
     <tr>
         <th>Order Id</th>
         <th>Service Date</th>
@@ -45,6 +83,8 @@ table {
 </tr>
 {% endfor %}
 </table>
+</div>
+</body>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <ul>
