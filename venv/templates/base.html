@@ -2,20 +2,159 @@
     <head>
     
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="{{url_for('static',filename='base.css')}}" />
+<!-- <link rel="stylesheet" href="{{url_for('static',filename='base.css')}}" />  -->  
         {% if title %}
         <title>{{ title }} - Service</title>
         {% else %}
        <title>Welcome to Service</title> 
         {% endif %}
+
+<style>
+ 
+            
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+*{
+    font-family: 'Montserrat', sans-serif;;
+    font-size: 17px;
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+ body{
+ box-shadow: 0px 1px 6px  rgb(70, 70, 70);  
+} 
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;  
+  background-color: #f3f3f3;
+  
+  
+}
+
+li {
+  float: left;
+  
+}
+
+li a {
+  
+    position: relative;
+    display: inline-block;
+    padding: 10px 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 10px;
+    letter-spacing: 2px;
+    color: #5a84a2;
+    
+    border-radius: 10px;
+    box-shadow: -2px -2px 8px rgba(255, 255, 255, 1),
+    -2px -2px 12px rgba(255, 255, 255, 0.5),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+    2px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+li a:hover span{
+  display: inline-block;
+  transform: scale(0.97);
+}
+
+li a:hover:not(.active) {
+  box-shadow: inset -2px -2px 8px rgba(255, 255, 255, 1),
+  inset -2px -2px 12px rgba(255, 255, 255, 0.5),
+  inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+  inset 2px 2px 8px rgba(0, 0, 0, 0.15);  
+}
+
+li a.active {
+  background-color: dodgerblue;
+  color:  whitesmoke;
+}
+
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  
+}
+
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  
+  box-shadow: 2px 2px 4px rgba(255, 255, 255, 0.1),
+    2px 2px 8px rgba(0, 0, 0, 0.15);
+
+    border-radius: 10px;
+  margin-top: 55px;
+  margin-left: 10px;
+  z-index: 100;
+  
+}
+
+.dropdown-content a {
+  float: none;
+  color: #5a84a2;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  
+}
+
+</style>
+
     </head>
     <body>
         <ul ><span>
             <li><a href="{{url_for('login')}}"><span>Login/Register</span></a></li>
             <li><a href="{{url_for('logout')}}"><span>Logout</span></a></li>
             <li><a href="{{url_for('addvehicle')}}"><span>Add Vehicle</span></a></li>
-            <li><a href="{{url_for('bookservice')}}"><span>Book Appointment</span></a></li>
+            <div class="dropdown">
+                <li class="dropbtn"><a>Manage Appointment <i class="fa fa-caret-down"></i></a>
+                  
+                </li>
+                <div class="dropdown-content">
+                  <a href="{{url_for('bookservice')}}">Book Appointment</a>
+                  <a href="#">Reschedule Appointment</a>
+                  <a href="#">Cancel Appointment</a>
+                </div>
+              </div>
             <li><a href="{{url_for('status')}}"><span>Check Status</span></a></li>
             <li style="float: right;"><a href=""><span>{{"Welcome "+current_user.name | default("User")}}</span></a></li>
          </span> </ul>
