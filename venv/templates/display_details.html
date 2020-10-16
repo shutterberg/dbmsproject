@@ -1,14 +1,123 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Current Status </h1>
-{% for deet in cur_status %}
-{% if deet.booked == '1' %}<h1 style="color:green"> Booked :done</h1> {%else%}<h1 style="color:red"> Booked : Not done</h1> {%endif%}
-{% if deet.started == '1' %}<h1 style="color:green"> Started :done</h1> {%else%}<h1 style="color:red"> Started : Not done</h1> {%endif%}
-{% if deet.washed == '1' %}<h1 style="color:green"> Washed :done</h1> {%else%}<h1 style="color:red"> Washed : Not done</h1> {%endif%}
-{% if deet.wheelcare == '1' %}<h1 style="color:green"> Wheelcare :done</h1> {%else%}<h1 style="color:red"> Wheelcare : Not done</h1> {%endif%}
-{% if deet.checkup == '1' %}<h1 style="color:green"> Checkup :done</h1> {%else%}<h1 style="color:red"> Checkup : Not done</h1> {%endif%}
 
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+    *{
+      
+      font-family: 'Montserrat', sans-serif;
+        box-shadow: none;
+        border: 0px;
+        
+        
+    }
+    body{
+        background-color: #f3f3f3;
+    }
+      .container {
+          position: absolute;
+          width: 1200px;
+          
+          font-size: 25;
+          box-shadow: none;
+          border: 0px;
+          border-radius: 15px;
+    box-shadow: -4px -4px 12px rgba(255, 255, 255, 1),
+    -4px -4px 14px rgba(255, 255, 255, 0.5),
+    inset 4px 4px 6px rgba(255, 255, 255, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 50px;
+    top: 50%;
+    left: 50%;
+  transform: translate(-50%, -50%);
+    
+}
+          
+      
+
+      .progressbar {
+          counter-reset: step;
+          box-shadow: none;
+          
+      }
+      .progressbar li {
+          list-style: none;
+          display: inline-block;
+          width: 19%;
+          position: relative;
+          text-align: center;
+          cursor: pointer;
+          color: rgb(211, 0, 0);
+      }
+      .progressbar li:before {
+          content: counter(step);
+          counter-increment: step;
+          width: 40px;
+          height: 40px;
+          line-height : 40px;
+          border: 1px solid #ddd;
+          border-radius: 100%;
+          display: block;
+          text-align: center;
+          margin: 0 auto 10px auto;
+          background-color: #fff;
+
+          
+      }
+      .progressbar li:after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 2px;
+          background-color: #ddd;
+          top: 20px;
+          left: -50%;
+          z-index : -1;
+          
+
+      }
+      .progressbar li:first-child:after {
+          content: none;
+          
+      }
+      .progressbar li.active {
+          color: green;
+          
+      }
+      .progressbar li.active:before {
+          border-color: green;
+      } 
+      .progressbar li.active + li:after {
+          background-color: green;
+      }
+
+      #icons{
+        margin-bottom: 20px;
+      }
+
+  </style>
+
+<body>
+    
+    <div class="container">
+
+<h3 style="text-align: center;margin-bottom: 70px; color: red;letter-spacing: 3px;">Current Status </h3>
+{% for deet in cur_status %}
+    <ul class="progressbar">
+
+
+{% if deet.booked == '1' %}  <li class="active">Booked<br> <i class="fa fa-check" id="icons" aria-hidden="true"></i></li> {%else%} <li>Booked <br> <i class="fa fa-times" id="icons" aria-hidden="true"></i></li> {%endif%}
+{% if deet.started == '1' %} <li class="active">Started<br> <i class="fa fa-check" id="icons" aria-hidden="true"></i></li> {%else%} <li >Started<br> <i class="fa fa-times" id="icons" aria-hidden="true"></i></li> {%endif%}
+{% if deet.wash == '1' %} <li class="active">Washed<br> <i class="fa fa-check" id="icons" aria-hidden="true"></i></li> {%else%} <li>Washed<br> <i class="fa fa-times" id="icons" aria-hidden="true"></i></li> {%endif%}
+{% if deet.wheelcare == '1' %} <li class="active">Wheelcare<br> <i class="fa fa-check" id="icons" aria-hidden="true"></i></li> {%else%} <li>Wheelcare<br> <i class="fa fa-times" id="icons" aria-hidden="true"></i></li> {%endif%}
+{% if deet.checkup == '1' %} <li class="active">Checkup<br> <i class="fa fa-check" id="icons" aria-hidden="true"></i></li> {%else%} <li>Checkup<br> <i class="fa fa-times" id="icons" aria-hidden="true"></i></li> {%endif%}   
+
+
+
+</ul>
+</div>
 {% endfor %}
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -20,3 +129,5 @@
         {% endif %}
         {% endwith %}
 {%endblock%}        
+
+</body>
