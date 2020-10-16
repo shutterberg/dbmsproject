@@ -4,7 +4,9 @@
 
 <style>
 
-   
+   *{
+       border: 0px;
+   }
 
 body{
     background: #f3f3f3;
@@ -38,6 +40,10 @@ body{
 p{
     padding: 15px;
 }
+
+p input{
+    padding: 6px;
+}
 .button{
     position: absolute;
     left: 50%;
@@ -57,6 +63,7 @@ p{
     inset 2px 2px 4px rgba(255, 255, 255, 0.1),
     2px 2px 6px rgba(0, 0, 0, 0.15);
     background: #f3f3f3;
+    font-size: 17px;
 
 }
 
@@ -76,7 +83,7 @@ p{
 <body>
 
     <div class="form">
-<h1 style="color:red;text-align: center;">Enter Order Id</h1><br>
+<h2 style="color:red;text-align: center;">Enter Order Id</h2><br>
     
     <form action="" method="post" style="text-align: center;">
         {{ form.hidden_tag() }}
