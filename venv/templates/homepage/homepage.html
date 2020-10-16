@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html >
+  <head>
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> 
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+    
+    *{
+      padding: 0;
+      margin: 0;
+      list-style: none;
+        font-family: 'Montserrat', sans-serif;;
+    
+      text-decoration: none;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;;
+    }
+    .sidebar {
+      position: fixed;
+      left: -330px;
+      width: 330px;
+      height: 100%;
+      background: #f3f3f3;
+      transition: all .5s ease;
+    }
+    .sidebar header {
+      font-size: 30px;
+      color: #5a84a2;
+      line-height: 70px;
+      text-align: center;
+      background: #e6e6e6;
+      user-select: none;
+      font-weight: bold;
+      box-shadow: 5px -3px 15px black;
+    }
+    
+    .sidebar ul{
+      padding-top: 30px;
+    }
+    
+    .sidebar ul a{
+      position: relative;
+        display: inline-block;
+        padding: 10px 10px;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin: 15px;
+        letter-spacing: 2px;
+        color: #5a84a2;
+        font-size: 20px;
+        border-radius: 10px;
+        box-shadow: -2px -2px 8px rgba(255, 255, 255, 1),
+        -2px -2px 12px rgba(255, 255, 255, 0.5),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+        2px 2px 8px rgba(0, 0, 0, 0.15);
+      transition: .4s;
+    }
+    ul li:hover a{
+      padding-left: 50px;
+    }
+    .sidebar ul a i{
+      margin-right: 16px;
+    }
+    #check{
+      display: none;
+    }
+    label #btn,label #cancel{
+      position: absolute;
+      background: #f3f3f3;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    label #btn{
+      left: 40px;
+      top: 25px;
+      font-size: 35px;
+      color: rgb(0, 0, 0);
+      padding: 6px 12px;
+      transition: all .5s;
+      box-shadow:0px 3px 5px black;
+    }
+    label #cancel{
+      background: #f3f3f3;
+      z-index: 1111;
+      left: -195px;
+      top: 17px;
+      font-size: 30px;
+      color: #000000;
+      padding: 4px 9px;
+      transition: all .5s ease;
+      margin-left: 15px;
+        box-shadow: -1px -1px 2px rgba(255, 255, 255, 1),
+        -1px -1px 6px rgba(255, 255, 255, 0.5),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+        2px 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+#btn:hover, #cancel:hover{
+  transform: rotate(180deg);
+  transition-duration: 0.5s;
+}
+
+
+    #check:checked ~ .sidebar{
+      left: 0;
+    }
+    #check:checked ~ label #btn{
+      left: 250px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #check:checked ~ label #cancel{
+      left: 250px;
+    }
+    #check:checked ~ #home{
+      margin-left: 250px;
+    }
+    #home {
+      background: url(image1.jpg) no-repeat  ;
+      background-position: center;
+      background-size: cover;
+      height: 100vh;
+      transition: all .5s;
+    }
+    
+     .txt{
+      text-align: center;
+      position: relative;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #f3f3f3;
+      font-size: 60px;
+      letter-spacing: 5px;
+      font-weight: bold;
+      text-shadow: 0px 3px 5px black;
+      pointer-events: none;
+    }
+  </style>
+  
+  </head>
+  <body>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+      <header>WELCOME</header>
+      <ul>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Register</a></li>
+        <li><a href="#">Check Status</a></li>
+        <li><a href="#">Book Appointment</a></li>
+      </ul>
+    </div>
+
+<div id="home">
+  
+
+      <div class="txt"> <i class="fa fa-cogs" style="padding: 20px;font-size: 70px;color: red;"></i> <p>VEHICLE   SERVICE <br> MANAGEMENT   SYSTEM</p></div>
+      
+</div>
+  </body>
+</html>
