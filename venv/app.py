@@ -44,6 +44,7 @@ class Book_service(db.Model):
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))    
     veh_num=db.Column(db.String(80))
     bksrv=db.relationship('Status',backref='owner',lazy='select') 
+    his=db.relationship('Historylog',backref='owner',lazy='select')
 
 class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -55,6 +56,7 @@ class User(UserMixin, db.Model):
   joined_at = db.Column(db.DateTime(), default = datetime.utcnow, index = True)
   veh=db.relationship('Vehicle_details',backref='owner',lazy='select')
   ser=db.relationship('Book_service',backref='owner',lazy='select')
+  
 
   def __repr__(self): 
     return '<User {}>'.format(self.username)
@@ -65,7 +67,13 @@ class User(UserMixin, db.Model):
   def check_password(self, password):
     return check_password_hash(self.password_hash, password)   
 
-
+class Historylog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String(), default = datetime.date, nullable=False)
+    slot= db.Column(db.String(80), unique=False, nullable=False)
+    order_id=db.Column(db.Integer,db.ForeignKey('book_service.id'))    
+    veh_num=db.Column(db.String(80))
+    state=db.Column(db.String(80),default="booked")
     
 
 
@@ -88,7 +96,7 @@ def index():
 
 @app.route('/home')
 def home():
-    return render_template('homepage.html')  
+    return render_template('base.html')  
 
 
 @login_manager.user_loader
@@ -122,7 +130,7 @@ def login():
       flash('login success')
       login_user(user, remember=form.remember.data)
       render_template('base.html',current_user=user)
-      next_page = url_for('index')
+      next_page = url_for('home')
       return redirect(next_page) if next_page else redirect(url_for('index', _external=True, _scheme='https'))
     else:
       return redirect(url_for('login',_external=True))
@@ -151,6 +159,9 @@ def bookservice():
     db.session.commit()
     status=Status(booked=0, started=0, wash=0,wheelcare= 0, checkup=0, owner=new_booking) 
     db.session.add(status)
+    db.session.commit()
+    new_log = Historylog(date=form['date'],slot=form['slot'],veh_num=form['carnum'],owner=new_booking)
+    db.session.add(new_log)
     db.session.commit() 
   return render_template('bookservice.html',details=details)
 
@@ -179,10 +190,55 @@ def status():
   return render_template('status.html', form=form)    
 
 
-@app.route('/service',methods=['GET','POST'])
+@app.route('/servicelog',methods=['GET','POST'])
 def service():
   details=Book_service.query.all()
   if request.method == 'POST':
     form=request.form
+    details=Book_service.query.filter_by(date=form['date']).all()
     return render_template('display_orders.html',details=details) 
   return render_template('search_orders.html')  
+
+
+@app.route('/rescheduleservice',methods=['GET','POST'])
+@login_required
+def rescheduleservice():
+  order_details=Book_service.query.filter_by(user_id=current_user.id).all()
+  details=Vehicle_details.query.filter_by(user_id=current_user.id).all()
+  if request.method == 'POST':
+    form=request.form
+    new_details=Book_service.query.filter_by(id=form['order_num']).first()
+    print("SELFPRINT:\t",form['order_num'])
+    print("SELFPRINT:\t",type(form['order_num']))
+    print("SELFPRINT:\t",new_details)
+    new_details.date=form['date']
+    new_details.slot=form['slot']
+    print("SELFPRINT:\t Update done")
+    
+    db.session.commit()
+     
+  return render_template('bookreservice.html',order_details=order_details)
+
+@app.route('/canceleservice',methods=['GET','POST'])
+@login_required
+def cancelservice():
+  order_details=Book_service.query.filter_by(user_id=current_user.id).all()
+  if request.method == 'POST':
+    form=request.form
+    history_details=Historylog.query.filter_by(id=form['order_num'],state='Booked').first()
+    if not history_details is None:
+      history_details.state='Canceled'
+    new_details=Book_service.query.filter_by(id=form['order_num']).first()
+    db.session.delete(new_details)
+    render_template('cancelservice.html',order_details=order_details)
+    print("SELFPRINT:\t Delete done")
+    
+    db.session.commit()
+     
+  return render_template('cancelservice.html',order_details=order_details)
+
+@app.route('/historylog',methods=['GET','POST'])
+def historylog():
+  details=Historylog.query.all()
+  return render_template('display_hlog.html',details=details) 
+    
