@@ -84,11 +84,11 @@ db.create_all()
 
 @app.route('/')
 def index():
-    return render_template('base.html')
+    return render_template('homepage.html')
 
 @app.route('/home')
 def home():
-    return render_template('base.html')  
+    return render_template('homepage.html')  
 
 
 @login_manager.user_loader

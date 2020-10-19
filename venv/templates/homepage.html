@@ -121,7 +121,7 @@
       margin-left: 250px;
     }
     #home {
-      background: url(image1.jpg) no-repeat  ;
+      background: url(static/image1.jpg) no-repeat  ;
       background-position: center;
       background-size: cover;
       height: 100vh;
@@ -153,10 +153,10 @@
     <div class="sidebar">
       <header>WELCOME</header>
       <ul>
-        <li><a href="#">Login</a></li>
-        <li><a href="#">Register</a></li>
-        <li><a href="#">Check Status</a></li>
-        <li><a href="#">Book Appointment</a></li>
+        <li><a href="{{url_for('login')}}">Login</a></li>
+        <li><a href="{{url_for('register')}}">Register</a></li>
+        <li><a href="{{url_for('status')}}">Check Status</a></li>
+        <li><a href="{{url_for('bookservice')}}">Book Appointment</a></li>
       </ul>
     </div>
 
