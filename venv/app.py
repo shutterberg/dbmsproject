@@ -96,7 +96,7 @@ def index():
 
 @app.route('/home')
 def home():
-    return render_template('base.html')  
+    return render_template('homepage.html')  
 
 
 @login_manager.user_loader
