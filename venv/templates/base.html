@@ -213,7 +213,7 @@
     </head>
     <body>
         <ul class="navbar"><span>
-<!---            <li><a href="{{url_for('login')}}"><span><i class="fa fa-sign-in" style="font-size: 20px;"></i> Login/Register</span></a></li>  -->
+<!---            <li><a href="{{url_for('login')}}"><span><i class="fa fa-sign-in" style="font-size: 20px;"></i> Login/Register</span></a></li> -->
             <li><a href="{{url_for('home')}}"><span><i class="fa fa-home" style="font-size: 20px;"></i> Home</span></a></li>
             <li><a href="{{url_for('addvehicle')}}"><span><i class="fa fa-plus" style="font-size: 20px;"></i> Add Vehicle</span></a></li>
             <div class="dropdown-1">
@@ -222,11 +222,12 @@
                 </li>
                 <div class="dropdown-1-content">
                   <a href="{{url_for('bookservice')}}">Book Appointment</a>
-                  <a href="#">Reschedule Appointment</a>
-                  <a href="#">Cancel Appointment</a>
+                  <a href="{{url_for('rescheduleservice')}}">Reschedule Appointment</a>
+                  <a href="{{url_for('cancelservice')}}">Cancel Appointment</a>
                 </div>
               </div>
             <li><a href="{{url_for('status')}}"><span><i class="fa fa-hourglass-half" style="font-size: 20px;"></i> Check Status</span></a></li>
+            <li><a href="{{url_for('historylog')}}"><span><i class="fa fa-history" style="font-size: 20px;"></i> History</span></a></li>
             <div class="dropdown-2">    
               <li class="dropbtn-2" style="float: right;"><a href=""><span><i class="fa fa-user-circle" style="font-size: 40px;"></i> </span></a></li>
               <div class="dropdown-2-content">
